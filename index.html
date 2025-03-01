@@ -1,0 +1,100 @@
+<h1><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对妹妹的恋人请求</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: rgb(242, 178, 121); /* 背景颜色设置为 RGB(242, 178, 121) */
+        }
+        #message {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #yesButton, #noButton, #confirmButton {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        #noButton {
+            transition: transform 0.3s ease;
+        }
+        #yesButton {
+            transition: transform 0.3s ease;
+        }
+        #confirmButton {
+            display: none; /* 默认隐藏“确定”按钮 */
+        }
+        img {
+            width: 300px; /* 默认图片尺寸 */
+            height: 300px;
+            margin-bottom: 20px;
+            transition: width 0.3s ease, height 0.3s ease; /* 图片尺寸变化动画 */
+        }
+    </style>
+</head>
+<body>
+    <div id="message">亲爱的妹妹，请问你可以成为我的恋人吗?</div>
+    <img id="dynamicImage" src="https://i.ibb.co/2711D9Dy/1000818438.gif" alt="动态图片">
+    <div>
+        <button id="yesButton">可以</button>
+        <button id="noButton">不可以</button>
+        <button id="confirmButton">确定</button>
+    </div>
+
+    <script>
+        const message = document.getElementById('message');
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const confirmButton = document.getElementById('confirmButton');
+        const dynamicImage = document.getElementById('dynamicImage');
+
+        let imageSize = 300; // 初始图片尺寸
+        const defaultImage = "https://i.ibb.co/2711D9Dy/1000818438.gif"; // 初始图片
+        const yesImage = "https://i.ibb.co/BVQ6wdmD/1000818489.gif"; // 点击“可以”后的图片
+        const noImage = "https://i.ibb.co/cSyK4J4z/1000818486.gif"; // 点击“不可以”后的图片
+
+        noButton.addEventListener('click', () => {
+            // 图片尺寸增加30x30
+            imageSize += 30;
+            dynamicImage.style.width = `${imageSize}px`;
+            dynamicImage.style.height = `${imageSize}px`;
+
+            // 切换图片
+            dynamicImage.src = noImage;
+        });
+
+        yesButton.addEventListener('click', () => {
+            // 恢复默认图片尺寸
+            imageSize = 300;
+            dynamicImage.style.width = `${imageSize}px`;
+            dynamicImage.style.height = `${imageSize}px`;
+
+            // 切换图片
+            dynamicImage.src = yesImage;
+
+            // 修改文字
+            message.textContent = '我也喜欢你!!';
+
+            // 隐藏“可以”和“不可以”按钮
+            yesButton.style.display = 'none';
+            noButton.style.display = 'none';
+
+            // 显示“确定”按钮
+            confirmButton.style.display = 'block';
+        });
+
+        confirmButton.addEventListener('click', () => {
+            alert('确定成功！'); // 点击“确定”后的操作
+        });
+    </script>
+</body>
+</html></h1>
