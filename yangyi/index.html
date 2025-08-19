@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>铃宫阳衣角色网站</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            background-image: 
+                linear-gradient(#e8f5e9 1px, transparent 1px),
+                linear-gradient(90deg, #e8f5e9 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: center center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #2e7d32;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        h1, h2 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: #1b5e20;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 20px 0;
+        }
+
+        .emoji {
+            font-size: 1.5rem;
+            margin: 0 5px;
+            vertical-align: middle;
+        }
+
+        .btn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background-color: #388e3c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background-color: #81c784;
+        }
+
+        .btn-secondary:hover {
+            background-color: #66bb6a;
+        }
+
+        .btn-back {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #a5d6a7;
+            color: #1b5e20;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .btn-back:hover {
+            background-color: #81c784;
+        }
+
+        .character-info, .fanart-gallery {
+            display: none;
+            margin-top: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .character-image, .fanart-image, .official-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin: 10px;
+            display: inline-block;
+            border: 5px solid #e8f5e9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .fanart-image:hover, .official-image:hover {
+            transform: scale(1.05);
+        }
+
+        .character-name {
+            font-size: 1.8rem;
+            margin: 20px 0 10px;
+            color: #1b5e20;
+        }
+
+        .character-description, .fanart-notice, .image-caption {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #424242;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .image-caption {
+            font-size: 0.9rem;
+            color: #757575;
+            margin-top: -5px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            margin: 20px 0 10px;
+        }
+
+        .divider {
+            border-top: 1px solid #bdbdbd;
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        .fanart-notice {
+            color: #d32f2f;
+            font-style: italic;
+        }
+
+        .decoration {
+            position: absolute;
+            font-size: 1.2rem;
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        .decoration.top-left {
+            top: 10px;
+            left: 10px;
+        }
+
+        .decoration.top-right {
+            top: 10px;
+            right: 10px;
+        }
+
+        .decoration.bottom-left {
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .decoration.bottom-right {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .pagination {
+            margin-top: 20px;
+        }
+
+        .page-btn {
+            background-color: #a5d6a7;
+            color: #1b5e20;
+            border: none;
+            padding: 8px 15px;
+            font-size: 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .page-btn:hover {
+            background-color: #81c784;
+        }
+
+        .page-btn:disabled {
+            background-color: #e0e0e0;
+            color: #9e9e9e;
+            cursor: not-allowed;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <div class="decoration top-left">🍀</div>
+        <div class="decoration top-right">✨</div>
+        <div class="decoration bottom-left">🍃</div>
+        <div class="decoration bottom-right">✨</div>
+        
+        <h1>欢迎观看<span class="emoji">🍀</span>铃宫阳衣<span class="emoji">🍃</span>角色网站<span class="emoji">✨</span></h1>
+        
+        <div id="welcome-content">
+            <p>这里是铃宫阳衣的专属角色网站，点击下方按钮了解更多关于她的信息。</p>
+            <button class="btn" id="show-info-btn">查看角色资料</button>
+            <button class="btn btn-secondary" id="show-fanart-btn">查看同人图</button>
+        </div>
+        
+        <div class="character-info" id="character-info">
+            <a href="#" class="btn-back" id="back-to-home-character">← 返回首页</a>
+            <img src="yangyi.png" alt="铃宫阳衣" class="yangyi.png">
+            <h2 class="character-name">铃宫阳衣</h2>
+            <p class="character-description">
+<p>年龄:16岁，生日:8月28日 <br>
+身高:166cm 体重48.6kg 血型:O型<br>
+班级:高二二班(转校生) 座位:三排二列<br>
+外貌特点:呆毛 昵称:小阳衣 萌点:路痴<br>
+所在地:爱知县 学校:私立PK学园高等中学<br>
+喜欢的人:鸟束零太 追求者:佐藤广(普通人)<br>
+体质:超级倒霉(已经到超能力的地步了吧)<br>
+习惯:多带(很多没必要的)东西。促成习惯的主要原因是因为小时候经常忘带东西挨说。</p>
+
+<p><strong>简介</strong><br>
+因为厄运体质发作会牵连到身边的人，导致从小到大一直没有朋友。并且本人只认为是自己的性格太冒失，笨拙才导致总会发生意外。这种体质在与佐藤广相处下会变得好一点(齐木:因为佐藤是超级普通的普通人，所以跟铃宫同学在一起的时候恰好能够抵消掉厄运体质，导致不会有人发生意外和受伤)<br>
+在发生爆炸(鸟束被炸飞飞到了阳衣身上)后因为误解以为鸟束为了保护自己才坐在自己身上，导致现在对鸟束零太产生极大好感。</p>
+
+<p><strong>人际关系(已知)</strong><br>
+家人:妈妈(在动漫有说交到朋友告诉妈妈)<br>
+朋友:齐木楠雄，鸟束零太，相卜命。(在小命用手机给大家拍照看死相的时候认为自己交到了朋友，同时要到了小命拍的四人合照)</p>
+
+<p><strong>出场集数</strong><br>
+《齐木楠雄的灾难》漫画中第257话登场<br>
+《齐木楠雄的灾难始动篇》第四集登场
+            </p>
+
+            <h3 class="section-title">官方图片一览</h3>
+            <div class="official-images">
+                <img src="yangyi.png" alt="官方图片1" class="official-image">
+                <p class="image-caption">人物设定图</p>
+                
+                <img src="a.png" alt="官方图片2" class="official-image">
+                <p class="image-caption">漫画首次出场</p>
+                
+                <div class="divider"></div>
+                <h3 class="section-title">以下为个人截图</h3>
+                
+                <img src="b.png" alt="个人截图1" class="official-image">
+                <img src="c.png" alt="个人截图2" class="official-image">
+                <img src="d.png" alt="个人截图3" class="official-image">
+            </div>
+        </div>
+    </div>
+
+    <div class="container fanart-gallery" id="fanart-container">
+        <a href="#" class="btn-back" id="back-to-home-fanart">← 返回首页</a>
+        <h2>同人图展示</h2>
+        <p class="fanart-notice">都是站主自己画的，因为不敢要其他老师问可不可以授权非常抱歉</p>
+        
+        <div id="fanart-images">
+            <!-- 图片将通过JavaScript动态加载 -->
+        </div>
+        
+        <div class="pagination">
+            <button class="page-btn" id="prev-page-btn" disabled>上一页</button>
+            <span id="page-info">第1页</span>
+            <button class="page-btn" id="next-page-btn">下一页</button>
+        </div>
+    </div>
+
+    <script>
+        // 返回首页功能
+        document.getElementById('back-to-home-character').addEventListener('click', function(e) {
+            e.preventDefault();
+            resetToHome();
+        });
+
+        document.getElementById('back-to-home-fanart').addEventListener('click', function(e) {
+            e.preventDefault();
+            resetToHome();
+        });
+
+        function resetToHome() {
+            document.getElementById('welcome-content').style.display = 'block';
+            document.getElementById('character-info').style.display = 'none';
+            document.getElementById('fanart-container').style.display = 'none';
+            document.getElementById('main-container').style.display = 'block';
+        }
+
+        // 角色资料显示
+        document.getElementById('show-info-btn').addEventListener('click', function() {
+            document.getElementById('welcome-content').style.display = 'none';
+            document.getElementById('character-info').style.display = 'block';
+            document.getElementById('fanart-container').style.display = 'none';
+            document.getElementById('main-container').style.display = 'block';
+        });
+
+        // 同人图显示
+        document.getElementById('show-fanart-btn').addEventListener('click', function() {
+            document.getElementById('welcome-content').style.display = 'none';
+            document.getElementById('character-info').style.display = 'none';
+            document.getElementById('fanart-container').style.display = 'block';
+            document.getElementById('main-container').style.display = 'none';
+            loadFanartPage(1); // 加载第一页同人图
+        });
+
+        // 同人图数据
+        const totalFanart = 15;
+        const fanartsPerPage = 4;
+        let currentPage = 1;
+
+        // 加载同人图页面
+        function loadFanartPage(page) {
+            currentPage = page;
+            const startIndex = (page - 1) * fanartsPerPage + 1;
+            const endIndex = Math.min(page * fanartsPerPage, totalFanart);
+            
+            const fanartContainer = document.getElementById('fanart-images');
+            fanartContainer.innerHTML = '';
+            
+            for (let i = startIndex; i <= endIndex; i++) {
+                const img = document.createElement('img');
+                img.src = `${i}.png`;
+                img.alt = `同人图 ${i}`;
+                img.className = 'fanart-image';
+                fanartContainer.appendChild(img);
+            }
+            
+            // 更新分页信息
+            document.getElementById('page-info').textContent = `第${page}页`;
+            document.getElementById('prev-page-btn').disabled = page === 1;
+            document.getElementById('next-page-btn').disabled = page === Math.ceil(totalFanart / fanartsPerPage);
+        }
+
+        // 分页按钮事件
+        document.getElementById('prev-page-btn').addEventListener('click', function() {
+            if (currentPage > 1) {
+                loadFanartPage(currentPage - 1);
+            }
+        });
+
+        document.getElementById('next-page-btn').addEventListener('click', function() {
+            if (currentPage < Math.ceil(totalFanart / fanartsPerPage)) {
+                loadFanartPage(currentPage + 1);
+            }
+        });
+    </script>
+</body>
+</html>
